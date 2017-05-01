@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 });
 
 // Tell it which folder we want to serve.
-app.use(express.static('dist'));
+app.use(express.static(__dirname + '/dist'));
 
 // Start the server
 app.listen(PORT, function () {

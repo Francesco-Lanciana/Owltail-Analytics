@@ -3,14 +3,14 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Dashboard from 'Dashboard';
 
-export const Main = React.createClass({
-  render: function() {
+class Main extends React.Component {
+  render() {
     return (
       <Router>
         <div>
           <ul>
             <li></li>
-              <li>Messages</li>
+              <li>Messagffs</li>
           </ul>
 
           <Route pattern="/" component={Dashboard}/>
@@ -18,6 +18,6 @@ export const Main = React.createClass({
       </Router>
     );
   }
-});
+};
 
 export default Main;

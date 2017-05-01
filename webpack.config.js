@@ -6,7 +6,7 @@ var autoprefixer = require('autoprefixer');
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
-console.log(PRODUCTION);
+
 var plugins = PRODUCTION
     ?   [
           new webpack.optimize.UglifyJsPlugin(),
