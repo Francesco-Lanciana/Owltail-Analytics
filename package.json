@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rimraf dist/ && NODE_ENV=production webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon server.js -e js,jsx",
+		"start": "nodemon server.js -e js,jsx"
   },
 	"dependencies": {
     "axios": "^0.15.3",

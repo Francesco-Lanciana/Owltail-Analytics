@@ -6,13 +6,13 @@ var autoprefixer = require('autoprefixer');
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
-
+console.log(PRODUCTION);
 var plugins = PRODUCTION
     ?   [
           new webpack.optimize.UglifyJsPlugin(),
           new ExtractTextPlugin('style-[contenthash:10].css'),
           new HTMLWebpackPlugin({
-            template: path.resolve(__dirname, "app/index_template.html")
+            template: path.resolve(__dirname, "src/index_template.html")
           }),
           new webpack.LoaderOptionsPlugin({
             options: {
@@ -23,7 +23,7 @@ var plugins = PRODUCTION
           //     name: 'vendor',
           // })
         ]
-  // :   [new webpack.HotModuleReplacementPlugin()];
+   :   [];//[new webpack.HotModuleReplacementPlugin()];
 
 plugins.push(
     new webpack.DefinePlugin({
@@ -41,7 +41,7 @@ const cssLoader = PRODUCTION
     :   ['style-loader', 'css-loader?localIdentName=' + cssIdentifier + '!postcss-loader'];
 
 const config = {
-  entry: './app/index.jsx',
+  entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: PRODUCTION ? '/' : '/public/',
@@ -66,15 +66,15 @@ const config = {
   },
   resolve: {
     alias: {
-      actions: path.resolve(__dirname, "app/actions/actions.jsx"),
-      reducers: path.resolve(__dirname, "app/reducers/reducers.jsx"),
-      configureStore: path.resolve(__dirname, "app/store/configureStore.jsx"),
+      actions: path.resolve(__dirname, "src/actions/actions.jsx"),
+      reducers: path.resolve(__dirname, "src/reducers/reducers.jsx"),
+      configureStore: path.resolve(__dirname, "src/store/configureStore.jsx"),
     },
     modules: [
-      path.resolve(__dirname, "app"),
-      path.resolve(__dirname, "app/components"),
-      path.resolve(__dirname, "app/tests"),
-      path.resolve(__dirname, "app/api"),
+      path.resolve(__dirname, "src"),
+      path.resolve(__dirname, "src/components"),
+      path.resolve(__dirname, "src/tests"),
+      path.resolve(__dirname, "src/api"),
       "node_modules"
     ],
     extensions: ['.js', '.jsx']
