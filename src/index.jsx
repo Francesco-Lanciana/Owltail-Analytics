@@ -7,6 +7,9 @@ import {configureStore} from 'configureStore';
 
 let store = configureStore();
 
+// Import styles
+require('applicationStyles');
+
 function renderApp() {
     ReactDOM.render(
         <Provider store={store}>

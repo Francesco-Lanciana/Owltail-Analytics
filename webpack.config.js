@@ -7,10 +7,15 @@ var autoprefixer = require('autoprefixer');
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
+const extractSass = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: DEVELOPMENT
+});
+
 var plugins = PRODUCTION
     ?   [
           new webpack.optimize.UglifyJsPlugin(),
-          new ExtractTextPlugin('style-[contenthash:10].css'),
+          extractSass,
           new HTMLWebpackPlugin({
             template: path.resolve(__dirname, "src/index_template.html")
           }),
@@ -29,16 +34,12 @@ plugins.push(
     new webpack.DefinePlugin({
         DEVELOPMENT: JSON.stringify(DEVELOPMENT),
         PRODUCTION: JSON.stringify(PRODUCTION)
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     })
 );
-
-const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
-
-const cssLoader = PRODUCTION
-    ?   ExtractTextPlugin.extract({
-            loader: 'css-loader?localIdentName=' + cssIdentifier + '!postcss-loader'
-        })
-    :   ['style-loader', 'css-loader?localIdentName=' + cssIdentifier + '!postcss-loader'];
 
 const config = {
   entry: './src/index.jsx',
@@ -50,12 +51,35 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(scss|sass)$/,
+        use: extractSass.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2
+            }
+          }, {
+            loader: 'postcss-loader'
+          }, {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [path.resolve(__dirname, "node_modules")]
+            }
+          }],
+          fallback: "style-loader"
+        })
+      },
+      {
         test: /\.jsx?$/,
         use: 'babel-loader',
         exclude: /(node_modules|bower_components)/
       }, {
         test: /\.css$/,
-        loaders: cssLoader,
+        use: extractSass.extract({
+          use: "css-loader",
+          fallback: "style-loader"
+        }),
         exclude: /(node_modules|bower_components)/
       }, {
         test: /\.(png|jpg|gif)$/,
@@ -69,6 +93,7 @@ const config = {
       actions: path.resolve(__dirname, "src/actions/actions.jsx"),
       reducers: path.resolve(__dirname, "src/reducers/reducers.jsx"),
       configureStore: path.resolve(__dirname, "src/store/configureStore.jsx"),
+      applicationStyles: path.resolve(__dirname, "src/styles/index.scss")
     },
     modules: [
       path.resolve(__dirname, "src"),
