@@ -12,7 +12,7 @@ app.use(function (req, res, next) {
     }
 });
 
-// Tell it which folder we want to serve
+// Tell it which folder we want to serve.
 app.use(express.static('dist'));
 
 // Start the server
