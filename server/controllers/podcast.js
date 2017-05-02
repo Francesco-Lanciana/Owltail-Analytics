@@ -8,7 +8,7 @@ var recordRouter = express.Router();
 var redirectRouter = express.Router({mergeParams: true});
 
 // you can nest routers by attaching them as middleware:
-recordRouter.use('/:podcastTitle/redirect', redirectRouter);
+recordRouter.use('/:podcastTitle/redirect.mp3', redirectRouter);
 
 // May be useful to tell users who view podcast and don't select episodes
 recordRouter.route('/:podcastTitle')
