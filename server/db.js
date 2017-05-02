@@ -10,6 +10,7 @@ var state = {
 };
 
 exports.connect = function(done) {
+  console.log(process.env.JAWSDB_URL);
   state.pool = mysql.createPool(process.env.JAWSDB_URL);
 
   state.mode = 'normal';
