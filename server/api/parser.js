@@ -7,9 +7,13 @@ sped up using the podcasts title). From here we can find the episode listened
 to using the mp3 link.
 */
 exports.fetchEpTitle = function(podTitle, mp3Link, device, done) {
+  console.log("Podcast: " + podTitle);
+  console.log("MP3 Link: " + mp3Link);
+  console.log("Device: " + device);
   rss_feeds.getAll((rows) => {
+    console.log(rows);
     rows.forEach((r) => {
-
+      console.log(row);
       parser.parseURL(r.url, function(error, parsed) {
         if (parsed.feed.title == podTitle) {
           parsed.feed.entries.some(function(entry) {
