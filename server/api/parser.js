@@ -18,7 +18,9 @@ exports.fetchEpTitle = function(podTitle, mp3Link, device, done) {
         if (parsed.feed.title == podTitle) {
           parsed.feed.entries.some(function(entry) {
             //Delete when on own server
-            if (entry.enclosure.url == ('http://www.podtrac.com/pts/redirect.mp3/' + mp3Link)) {
+            var option1 = 'http://www.podtrac.com/pts/redirect.mp3/' + mp3Link;
+            var option2 = 'http://analytics.owltail.com/podcast/' + encodeURI(podTitle) + '/redirect.mp3/' + mp3Link;
+            if (entry.enclosure.url == option1 || entry.enclosure.url == option2)) {
               done(podTitle, entry.title, device); // Might need a callback
               return true;
             }
