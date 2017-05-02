@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
@@ -38,6 +39,10 @@ plugins.push(
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
+    }),
+    new LodashModuleReplacementPlugin({
+      'collections': true,
+      'paths': true
     })
 );
 
