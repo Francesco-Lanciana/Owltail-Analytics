@@ -29,7 +29,7 @@ redirectRouter.route(/(.+)/)
       parser.fetchEpTitle(req.params.podcastTitle, mp3URL, device, (pod, ep, device) => {
         listens.create(pod, ep, device);
       });
-
+      res.redirect(mp3URL);
        //This might need to be a promise based thing
       //listens.create(req.params.podcastTitle, epTitle, md.os());
       next();
