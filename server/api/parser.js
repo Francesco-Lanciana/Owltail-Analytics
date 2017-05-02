@@ -13,7 +13,7 @@ exports.fetchEpTitle = function(podTitle, mp3Link, device, done) {
   rss_feeds.getAll((rows) => {
     console.log(rows);
     rows.forEach((r) => {
-      console.log(row);
+      console.log(r);
       parser.parseURL(r.url, function(error, parsed) {
         if (parsed.feed.title == podTitle) {
           parsed.feed.entries.some(function(entry) {
