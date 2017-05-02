@@ -19,6 +19,7 @@ recordRouter.route('/:podcastTitle')
 
 redirectRouter.route(/(.+)/)
     .all(function (req, res, next) {
+      console.log("HEEYY");
       var mp3URL = req.params['0'].slice(1);
       //var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
       //console.log(fullUrl);
